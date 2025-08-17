@@ -12,4 +12,16 @@ jobs:
     steps:
       - name: Call Vercel API
         run: |
-          curl -X POST "https://seu-projeto.vercel.app/api/send"
+          response=$(curl -s -w "HTTPSTATUS:%{http_code}" -X POST "https://notion-slack-send-7eme0ljrm-softis.vercel.app/api/send")
+          http_code=$(echo $response | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
+          body=$(echo $response | sed -e 's/HTTPSTATUS:.*//g')
+          
+          echo "HTTP Status: $http_code"
+          echo "Response: $body"
+          
+          if [ $http_code -ne 200 ]; then
+            echo "Erro na requisição!"
+            exit 1
+          else
+            echo "✅ Mensagem enviada com sucesso!"
+          fi
