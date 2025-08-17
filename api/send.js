@@ -1,5 +1,8 @@
 import fetch from "node-fetch";
 import { DateTime } from "luxon";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const NOTION_API_KEY = process.env.NOTION_API_KEY;
 const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID;
