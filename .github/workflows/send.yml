@@ -1,0 +1,15 @@
+name: Send Notion Tasks to Slack
+
+on:
+  schedule:
+    - cron: "0 12 * * *"   # 12h UTC -> 9h São Paulo (manhã)
+    - cron: "0 21 * * *"   # 21h UTC -> 18h São Paulo (noite)
+  workflow_dispatch:        # permite rodar manualmente também
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Vercel API
+        run: |
+          curl -X POST "https://seu-projeto.vercel.app/api/send"
